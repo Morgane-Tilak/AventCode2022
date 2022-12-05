@@ -6,6 +6,7 @@ public class Main : MonoBehaviour
     [SerializeField] private TextAsset InputTextDay1;
     [SerializeField] private TextAsset InputTextDay2;
     [SerializeField] private TextAsset InputTextDay3;
+    [SerializeField] private TextAsset InputTextDay4;
 
     void Start()
     {
@@ -15,5 +16,7 @@ public class Main : MonoBehaviour
         Day2.Part2(InputTextDay2);
         Day3.Part1(InputTextDay3);
         Day3.Part2(InputTextDay3);
+        Day4.Part1(InputTextDay4);
+        Day4.Part2(InputTextDay4);
     }
 }
