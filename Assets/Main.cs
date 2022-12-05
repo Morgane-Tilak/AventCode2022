@@ -15,6 +15,7 @@ public class Main : MonoBehaviour
         Day1_1();
         Day1_2();
         Day2_1();
+        Day2_2();
     }
 
     private void Day1_1()
@@ -64,8 +65,7 @@ public class Main : MonoBehaviour
             return 3;
         if (Win(opponent, mine))
             return 6;
-        
-        throw new Exception("Wrong outcome");
+        return 0;
     }
 
     private bool IsDraw(char opponent, char mine)
@@ -95,17 +95,51 @@ public class Main : MonoBehaviour
         char opponent = round[0];
         
         char mine = round[2];
-        int s = MyChoiceScore(mine) + OutcomeScore(opponent, mine);
+        (char m, int outcomeScore) choice = ChangeMyChoice(opponent, mine);
+        int s = MyChoiceScore(choice.m) + choice.outcomeScore;
         return s;
     }
 
-    private char ChangeMyChoice(char mine)
+    private (char, int) ChangeMyChoice(char opponent, char mine)
     {
-        switch (mine)
+        return mine switch
         {
-            case 'X':
-                return 
-        }
+            'X' => (NeedLoose(opponent),0),
+            'Y' => (NeedDraw(opponent), 3),
+            'Z' => (NeedWin(opponent),6),
+            _ => throw new Exception("Wrong argument")
+        };
+    }
+
+    private char NeedDraw(char opponent)
+    {
+        return opponent switch
+        {
+            'A' => 'X',
+            'B' => 'Y',
+            'C' => 'Z',
+            _ => throw new Exception("Wrong argument")
+        };
+    }
+    private char NeedWin(char opponent)
+    {
+        return opponent switch
+        {
+            'A' => 'Y',
+            'B' => 'Z',
+            'C' => 'X',
+            _ => throw new Exception("Wrong argument")
+        };
+    }
+    private char NeedLoose(char opponent)
+    {
+        return opponent switch
+        {
+            'A' => 'Z',
+            'B' => 'X',
+            'C' => 'Y',
+            _ => throw new Exception("Wrong argument")
+        };
     }
     
 }
