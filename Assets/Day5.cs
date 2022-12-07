@@ -18,6 +18,17 @@ namespace DefaultNamespace
             }
             return result;
         }
+        public static List<T> PopRangeReverse<T>(this Stack<T> stack, int amount)
+        {
+            var result = new List<T>(amount);
+            while (amount-- > 0 && stack.Count > 0)
+            {
+                result.Add(stack.Pop());
+            }
+
+            result.Reverse();
+            return result;
+        }
         
         public static void PushRange<T>(this Stack<T> stack, List<T> elements)
         {
@@ -37,17 +48,21 @@ namespace DefaultNamespace
             
             List<Stack<char>> crates = CreateCrates(inputs, indexOfEmptyLine);
             List<List<int>> instructions = CreateInstructions(inputs, indexOfEmptyLine);
-            foreach (List<int> instruction in instructions)
-            {
-                Stack<char> v = crates[instruction[1] - 1];
-                List<char> charsToMove = v.PopRange(instruction[0]);
-                crates[instruction[2]-1].PushRange(charsToMove);
-            }
+            MoveCrates1(instructions, crates);
             
             string result = crates.Aggregate(String.Empty, (current, crate) => current + crate.Peek());
             Debug.Log($"[{nameof(Part1)}] : {result}");
         }
 
+        private static void MoveCrates1(List<List<int>> instructions, List<Stack<char>> crates)
+        {
+            foreach (List<int> instruction in instructions)
+            {
+                Stack<char> v = crates[instruction[1] - 1];
+                List<char> charsToMove = v.PopRange(instruction[0]);
+                crates[instruction[2] - 1].PushRange(charsToMove);
+            }
+        }
         private static List<Stack<char>> CreateCrates(List<string> inputs, int indexOfEmptyLine)
         {
             List<string> crates = inputs.Take(indexOfEmptyLine).ToList();
@@ -91,6 +106,30 @@ namespace DefaultNamespace
                 result.Add(new List<int>(){Convert.ToInt32(r[1]), Convert.ToInt32(r[3]), Convert.ToInt32(r[5])});
             }
             return result;
+        }
+        
+        
+        public static void Part2(TextAsset InputText)
+        {
+            List<string> inputs = InputText.text.Split("\r\n").ToList();
+            int indexOfEmptyLine = inputs.IndexOf(String.Empty);
+            
+            List<Stack<char>> crates = CreateCrates(inputs, indexOfEmptyLine);
+            List<List<int>> instructions = CreateInstructions(inputs, indexOfEmptyLine);
+            MoveCrates2(instructions, crates);
+            
+            string result = crates.Aggregate(String.Empty, (current, crate) => current + crate.Peek());
+            Debug.Log($"[{nameof(Part2)}] : {result}");
+        }
+        
+        private static void MoveCrates2(List<List<int>> instructions, List<Stack<char>> crates)
+        {
+            foreach (List<int> instruction in instructions)
+            {
+                Stack<char> v = crates[instruction[1] - 1];
+                List<char> charsToMove = v.PopRangeReverse(instruction[0]);
+                crates[instruction[2] - 1].PushRange(charsToMove);
+            }
         }
     }
 }

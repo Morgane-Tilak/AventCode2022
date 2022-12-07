@@ -20,5 +20,6 @@ public class Main : MonoBehaviour
         // Day4.Part1(InputTextDay4);
         // Day4.Part2(InputTextDay4);
         Day5.Part1(InputTextDay5);
+        Day5.Part2(InputTextDay5);
     }
 }
