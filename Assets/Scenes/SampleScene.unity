@@ -157,6 +157,7 @@ MonoBehaviour:
   InputTextDay3: {fileID: 4900000, guid: 26fc05c5649f0a94e8214c84dc6d75ec, type: 3}
   InputTextDay4: {fileID: 4900000, guid: 977c9364cdfb4afd9295006d55ebdc34, type: 3}
   InputTextDay5: {fileID: 4900000, guid: 91f8998365a14df0a40604ab1230c036, type: 3}
+  InputTextDay6: {fileID: 4900000, guid: 0f31f7893e5a42669d124e3c125be669, type: 3}
 --- !u!4 &516917561
 Transform:
   m_ObjectHideFlags: 0
